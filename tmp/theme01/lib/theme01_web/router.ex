@@ -1,9 +1,9 @@
 defmodule Theme01Web.Router do
   use Theme01Web, :router
 
-  resources "/users", PageController, except: [:new, :edit]
-  resources "/api", PageController, except: [:new, :edit]
-  resources "/api/tasks", PageController, except: [:new, :edit]
+  resources "/users", UserController, except: [:new, :edit]
+  resources "/clocks", ClockController, except: [:new, :edit]
+  resources "/workingtimes", WorkingTimeController, except: [:new, :edit]
   end
   # pipeline :browser do
   #   plug :accepts, ["html"]
