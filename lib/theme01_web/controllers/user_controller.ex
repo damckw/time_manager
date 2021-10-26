@@ -11,8 +11,8 @@ defmodule Theme01Web.UserController do
     render(conn, "index.json", users: users)
   end
 
-  def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- API.create_user(user_params) do
+  def create(conn, %{"username" => user_params, "email" => email_params} = _) do
+    with {:ok, %User{} = user} <- API.create_user(%{username: user_params, email: email_params}) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.user_path(conn, :show, user))
@@ -20,15 +20,19 @@ defmodule Theme01Web.UserController do
     end
   end
 
+  def create(conn, _ \\ :default) do
+    send_resp(conn, 400, "Invalid arguments")
+  end
+
   def show(conn, %{"id" => id}) do
     user = API.get_user!(id)
     render(conn, "show.json", user: user)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
+  def update(conn, %{"id" => id, "username" => user_params, "email" => email_params}) do
     user = API.get_user!(id)
 
-    with {:ok, %User{} = user} <- API.update_user(user, user_params) do
+    with {:ok, %User{} = user} <- API.update_user(user, %{username: user_params, email: email_params}) do
       render(conn, "show.json", user: user)
     end
   end
