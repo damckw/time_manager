@@ -4,8 +4,8 @@ defmodule Theme01.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :username, :text, requires
-      add :email, :text, requires
+      add :username, :text, null: false
+      add :email, :text, null: false
 
       timestamps()
     end
