@@ -29,6 +29,11 @@ defmodule Theme01Web.UserController do
     render(conn, "show.json", user: user)
   end
 
+  def show(conn, %{"username" => username, "email" => email}) do
+    user = API.get_user_by!(%{username: username, email: email})
+    render(conn, "show.json", user: user)
+  end
+
   def update(conn, %{"id" => id, "username" => user_params, "email" => email_params}) do
     user = API.get_user!(id)
 

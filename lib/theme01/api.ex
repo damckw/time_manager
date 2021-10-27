@@ -37,6 +37,9 @@ defmodule Theme01.API do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user_by!(attrs \\ %{}) do
+    Repo.get_by(User, attrs)
+  end
   @doc """
   Creates a user.
 
