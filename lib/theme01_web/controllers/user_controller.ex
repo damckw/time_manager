@@ -12,6 +12,7 @@ defmodule Theme01Web.UserController do
   end
 
   def create(conn, _ \\ :default)
+
   def create(conn, %{"username" => user_params, "email" => email_params}) do
     with {:ok, %User{} = user} <- API.create_user(%{username: user_params, email: email_params}) do
       conn
@@ -26,6 +27,12 @@ defmodule Theme01Web.UserController do
   end
 
   def show(conn, %{"id" => id}) do
+    try do
+      API.get_user!(id)
+    rescue
+      Ecto.NoResultsError -> send_resp(conn, 400, "Invalid User ID")
+    end
+
     user = API.get_user!(id)
     render(conn, "show.json", user: user)
   end
@@ -36,6 +43,12 @@ defmodule Theme01Web.UserController do
   end
 
   def update(conn, %{"id" => id, "username" => user_params, "email" => email_params}) do
+    try do
+      API.get_user!(id)
+    rescue
+      Ecto.NoResultsError -> send_resp(conn, 400, "Invalid User ID")
+    end
+
     user = API.get_user!(id)
 
     with {:ok, %User{} = user} <- API.update_user(user, %{username: user_params, email: email_params}) do
@@ -44,6 +57,12 @@ defmodule Theme01Web.UserController do
   end
 
   def delete(conn, %{"id" => id}) do
+    try do
+      API.get_user!(id)
+    rescue
+      Ecto.NoResultsError -> send_resp(conn, 400, "Invalid User ID")
+    end
+
     user = API.get_user!(id)
 
     with {:ok, %User{}} <- API.delete_user(user) do

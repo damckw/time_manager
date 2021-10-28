@@ -27,19 +27,41 @@ defmodule Theme01Web.WorkingTimeController do
     send_resp(conn, 400, "Invalid arguments")
   end
   def show(conn, %{"id" => id}) do
+    try do
+      API.get_working_time!(id)
+    rescue
+      Ecto.NoResultsError -> send_resp(conn, 400, "Invalid Working Time ID")
+    end
+    
     working_time = API.get_working_time!(id)
     render(conn, "show.json", working_time: working_time)
   end
 
   def update(conn, %{"id" => id, "start" => start_params, "end" => end_params, "user" => user_id}) do
+    try do
+      API.get_working_time!(id)
+    rescue
+      Ecto.NoResultsError -> send_resp(conn, 400, "Invalid Working Time ID")
+    end
+
     working_time = API.get_working_time!(id)
 
-    with {:ok, %WorkingTime{} = working_time} <- API.update_working_time(working_time, %{start: start_params, end: end_params, user: user_id}) do
-      send_resp(conn, "show.json", working_time: working_time)
+    with {:ok, %WorkingTime{} = working_time} <- API.update_working_time(working_time,%{
+      start: NaiveDateTime.from_iso8601!(start_params),
+      end: NaiveDateTime.from_iso8601!(end_params),
+      user: user_id
+      }) do
+      render(conn, "show.json", working_time: working_time)
     end
   end
 
   def delete(conn, %{"id" => id}) do
+    try do
+      API.get_working_time!(id)
+    rescue
+      Ecto.NoResultsError -> send_resp(conn, 400, "Invalid Working Time ID")
+    end
+
     working_time = API.get_working_time!(id)
 
     with {:ok, %WorkingTime{}} <- API.delete_working_time(working_time) do
