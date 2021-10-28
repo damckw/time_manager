@@ -11,8 +11,8 @@ defmodule Theme01Web.WorkingTimeController do
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
-  def create(conn, %{"working_time" => working_time_params, "start" => start_params, "end" => end_params}) do
-    with {:ok, %WorkingTime{} = working_time} <- API.create_working_time(%{start: start_params, end: end_params}) do
+  def create(conn, %{"start" => start_params, "end" => end_params, "user" => user_id}) do
+    with {:ok, %WorkingTime{} = working_time} <- API.create_working_time(%{start: start_params, end: end_params, user: user_id}) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.working_time_path(conn, :show, working_time))
@@ -25,11 +25,11 @@ defmodule Theme01Web.WorkingTimeController do
     render(conn, "show.json", working_time: working_time)
   end
 
-  def update(conn, %{"id" => id, "start" => start_params, "end" => end_params}) do
+  def update(conn, %{"id" => id, "start" => start_params, "end" => end_params, "user" => user_id}) do
     working_time = API.get_working_time!(id)
 
-    with {:ok, %WorkingTime{} = working_time} <- API.update_working_time(working_time, working_time_params) do
-      send_resp(conn, :no_content, "")
+    with {:ok, %WorkingTime{} = working_time} <- API.update_working_time(working_time, %{start: start_params, end: end_params, user: user_id}) do
+      send_resp(conn, "show.json", working_time: working_time)
     end
   end
 

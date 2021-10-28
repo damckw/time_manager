@@ -11,7 +11,8 @@ defmodule Theme01Web.UserController do
     render(conn, "index.json", users: users)
   end
 
-  def create(conn, %{"username" => user_params, "email" => email_params} = _) do
+  def create(conn, _ \\ :default)
+  def create(conn, %{"username" => user_params, "email" => email_params}) do
     with {:ok, %User{} = user} <- API.create_user(%{username: user_params, email: email_params}) do
       conn
       |> put_status(:created)
@@ -20,7 +21,7 @@ defmodule Theme01Web.UserController do
     end
   end
 
-  def create(conn, _ \\ :default) do
+  def create(conn, _) do
     send_resp(conn, 400, "Invalid arguments")
   end
 

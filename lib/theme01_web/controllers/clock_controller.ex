@@ -12,7 +12,7 @@ defmodule Theme01Web.ClockController do
   end
 
   def create(conn, %{"time" => time_param, "status" => status_param, "user" => user_param}) do
-    with {:ok, %Clock{} = clock} <- API.create_clock(%{time: NaiveDateTime.from_iso8601(time_param), status: status_param, user: user_param}) do
+    with {:ok, %Clock{} = clock} <- API.create_clock(%{time: NaiveDateTime.from_iso8601!(time_param), status: status_param, user: user_param}) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
