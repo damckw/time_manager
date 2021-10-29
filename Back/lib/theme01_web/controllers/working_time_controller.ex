@@ -34,6 +34,10 @@ defmodule Theme01Web.WorkingTimeController do
     end
     
     workingtimes = Repo.all(from u in WorkingTime, where: u.user == ^id, where: u.start > ^NaiveDateTime.from_iso8601!(start_param), where: u.end < ^NaiveDateTime.from_iso8601!(end_param))
+    
+    if workingtimes == [] do
+      send_resp(conn, 400, "Invalid Request Working Times not found")
+    end
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
