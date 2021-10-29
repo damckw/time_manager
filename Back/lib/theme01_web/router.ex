@@ -22,20 +22,15 @@ defmodule Theme01Web.Router do
 
   scope "/api", Theme01Web do
     pipe_through :api
-    # resources "/users", UserController
-    # resources "/clocks", ClockController
-    # resources "/workingtimes", WorkingTimeController
-    # resources "/users", UserController
-    # resources "/workingtimes", WorkingTimeController
-    # resources "/clocks", ClockController
+
     get "/users", UserController, :getUserID
     get "/users/:userID", UserController, :getUserByID
     post "/users", UserController, :createUser
     put "/users/:userID", UserController, :updateUser
     delete "/users/:userID", UserController, :deleteUser
 
-    get "/workingtimes/:userID", WorkingTimeController, :getWorkingTimeByUserID
-    get "/workingtimes/:id", WorkingTimeController, :getWorkingTimeByID
+    get "/workingtimes/:userID", WorkingTimeController, :getWorkingTime
+    get "/workingtimes/:id", WorkingTimeController, :getWorkingTime
     post "/workingtimes/:userID", WorkingTimeController, :createWorkingTimeByUserID
     put "/workingtimes/:id", WorkingTimeController, :updateWorkingTimeByID
     delete "/workingtimes/:id", WorkingTimeController, :deleteWorkingTimeByID
