@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  back:
+    image: maelledefay/back
+    build: 
+      context: Back
+    environment:
+      WAIT_HOSTS: postgres:5432
+      PGUSER: $PGUSER
+      PGPASSWORD: $PGPASSWORD
+      PGDATABASE: $PGDATABASE
+      PGHOST: $PGHOST
+    ports:
+      - 4000:4000
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: $PGUSER
+      POSTGRES_PASSWORD: $PGPASSWORD
+      POSTGRES_DB: $PGDATABASE
+  front:
+    image: maelledefay/front:dev
+    build: 
+      context: Front
+      target: dev
+    ports: 
+      - 8080:8080
