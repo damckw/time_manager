@@ -1,6 +1,6 @@
 defmodule Theme01Web.Router do
   use Theme01Web, :router
-
+  
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -22,9 +22,42 @@ defmodule Theme01Web.Router do
 
   scope "/api", Theme01Web do
     pipe_through :api
-    resources "/users", UserController
-    resources "/clocks", ClockController
-    resources "/workingtimes", WorkingTimeController
+    # resources "/users", UserController
+    # resources "/clocks", ClockController
+    # resources "/workingtimes", WorkingTimeController
+    # resources "/users", UserController
+    # resources "/workingtimes", WorkingTimeController
+    # resources "/clocks", ClockController
+    get "/users", UserController, :getUserID
+    get "/users/:userID", UserController, :getUserByID
+    post "/users", UserController, :createUser
+    put "/users/:userID", UserController, :updateUser
+    delete "/users/:userID", UserController, :deleteUser
+
+    get "/workingtimes/:userID", WorkingTimeController, :getWorkingTimeByUserID
+    get "/workingtimes/:id", WorkingTimeController, :getWorkingTimeByID
+    post "/workingtimes/:userID", WorkingTimeController, :createWorkingTimeByUserID
+    put "/workingtimes/:id", WorkingTimeController, :updateWorkingTimeByID
+    delete "/workingtimes/:id", WorkingTimeController, :deleteWorkingTimeByID
+
+    get "/clocks/:userID", ClockController, :getClocksByUserID
+    post "/clocks/:userID", ClockController, :createClockByUserID
+  
+    # TODO
+    # GET method : http://localhost:4000/api/users?email=XXX&username=YYY
+    # GET method : http://localhost:4000/api/users/:userID
+    # POST method : http://localhost:4000/api/users
+    # PUT method : http://localhost:4000/api/users/:userID
+    # DELETE method : http://localhost:4000/api/users/:userID
+
+    #  a GET (ALL) method : http://localhost:4000/api/workingtimes/:userID?start=XXX&end=YYY
+    #  a GET (ONE) method : http://localhost:4000/api/workingtimes/:id
+    #  a POST method : http://localhost:4000/api/workingtimes/:userID
+    #  a PUT method : http://localhost:4000/api/workingtimes/:id
+    #  a DELETE method : http://localhost:4000/api/workingtimes/:id
+
+    #  a GET method : http://localhost:4000/api/clocks/:userID
+    #  a POST method : http://localhost:4000/api/clocks/:userID
   end
 
 
