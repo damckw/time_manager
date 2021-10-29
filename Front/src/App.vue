@@ -11,8 +11,29 @@
       <router-link to="/ChartManager">ChartManager</router-link>
     </div>
     <router-view/>
+    <img src="./assets/logo.png">
+    <Boxes msg="test"/>
   </div>
 </template>
 
+<script>
+import Boxes from './components/Boxes.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Boxes
+  }
+}
+</script>
+
 <style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>
