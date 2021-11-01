@@ -1,11 +1,12 @@
 <template>
-    <div>
+    <div id="user">
+        <p>Create User</p>
         <div>
-            <label>username</label>
+            <label>Username </label>
             <input v-model="username" type="text" name="username">
         </div>
         <div>
-            <label>Email</label>
+            <label>Email </label>
             <input v-model="email" type="email" name="email">
         </div>
         <div>
@@ -18,7 +19,7 @@
 import axios from 'axios'
 
 export default {
-    name: 'User',
+    name: 'CreateUser',
     data () {
         return {
             username: '',

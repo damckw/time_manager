@@ -1,62 +1,73 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import User from '../components/User.vue'
-import DeleteUser from '../components/DeleteUser'
-import UpdateUser from '../components/UpdateUser'
-import GetUser from '../components/GetUser'
-import WorkingTimes from '../components/WorkingTimes'
-import WorkingTime from '../components/WorkingTime'
-import ClockManager from '../components/ClockManager'
-import ChartManager from '../components/ChartManager'
+import Home from '../views/Home'
+// import User from '../components/User.vue'
+// import DeleteUser from '../components/DeleteUser'
+// import UpdateUser from '../components/UpdateUser'
+// import GetUser from '../components/GetUser'
+// import WorkingTimes from '../components/WorkingTimes'
+// import WorkingTime from '../components/WorkingTime'
+// import ClockManager from '../components/ClockManager'
+// import ChartManager from '../components/ChartManager'
 
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/user',
-    name: 'User',
-    component: User
+    path: '/home',
+    name: 'Home',
+    component: Home
   },
   {
-    path: '/DeleteUser',
-    name: 'DeleteUser',
-    component: DeleteUser
-  },
-  {
-    path: '/GetUser',
-    name: 'GetUser',
-    component: GetUser
-  },
-  {
-    path: '/UpdateUser',
-    name: 'UpdateUser',
-    component: UpdateUser
-  },
-  {
-    path: '/WorkingTimes',
-    name: 'WorkingTimes',
-    component: WorkingTimes
+    path: '/',
+    name: 'Home',
+    component: Home
+  }
+  // {
+  //   path: '/user',
+  //   name: 'User',
+  //   component: User
+  // },
+  // {
+  //   path: '/DeleteUser',
+  //   name: 'DeleteUser',
+  //   component: DeleteUser
+  // },
+  // {
+  //   path: '/GetUser',
+  //   name: 'GetUser',
+  //   component: GetUser
+  // },
+  // {
+  //   path: '/UpdateUser',
+  //   name: 'UpdateUser',
+  //   component: UpdateUser
+  // },
+  // {
+  //   path: '/WorkingTimes',
+  //   name: 'WorkingTimes',
+  //   component: WorkingTimes
 
-  },
-  {
-    path: '/WorkingTime',
-    name: 'WorkingTime',
-    component: WorkingTime
+  // },
+  // {
+  //   path: '/WorkingTime',
+  //   name: 'WorkingTime',
+  //   component: WorkingTime
 
-  },
-  {
-    path: '/ClockManager',
-    name: 'ClockManager',
-    component: ClockManager
+  // },
+  // {
+  //   path: '/ClockManager',
+  //   name: 'ClockManager',
+  //   component: ClockManager
 
-  },
-  {
-    path: '/ChartManager',
-    name: 'ChartManager',
-    component: ChartManager
+  // },
+  // {
+  //   path: '/ChartManager',
+  //   name: 'ChartManager',
+  //   component: ChartManager
 
-  },
+  // },
 
   /*{
     path: '/about',

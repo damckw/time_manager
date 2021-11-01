@@ -1,7 +1,8 @@
 <template>
-    <div>
-        <p>DeleteUser</p>
-        <input v-model="userId" type="text" name="username">
+    <div id="deleteUser">
+        <p>Delete User</p>
+        <label>User ID </label>
+        <input v-model="userId" type="text" name="username" placeholder="User ID">
         <button type="submit" v-on:click="deleted">Delete</button>
     </div>
 </template>

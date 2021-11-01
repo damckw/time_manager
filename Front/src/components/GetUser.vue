@@ -1,7 +1,16 @@
 <template>
     <div>
-        <p>GetUser</p>
+        <p>Get User ID</p>
+        <div>
+            <label>Username </label>
+            <input v-model="username" type="text" name="username">
+        </div>
+        <div>
+            <label>Email </label>
+            <input v-model="email" type="email" name="email">
+        </div>
         <button type="submit" v-on:click="getId">Get</button>
+        <div>User ID : {{this.userId}}</div>
     </div>
 </template>
 
@@ -10,7 +19,7 @@ import axios from 'axios'
 // @ is an alias to /src
 
 export default {
-    name: 'User',
+    name: 'GetUser',
     data () {
         return {
             username: this.username,

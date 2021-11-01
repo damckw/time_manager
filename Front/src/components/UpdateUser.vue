@@ -1,14 +1,16 @@
 <template>
     <div>
+        <p>Update User</p>
         <div>
-            <label>username</label>
+            <label>Username </label>
             <input v-model="username" type="text" name="username">
         </div>
         <div>
-            <label>Email</label>
+            <label>Email </label>
             <input v-model="email" type="email" name="email">
         </div>
         <div>
+            <label>User ID </label>
             <input v-model="userId" type="text" name="username">
         </div>
         <div>
@@ -21,7 +23,7 @@
 import axios from 'axios'
 
 export default {
-    name: 'User',
+    name: 'UpdateUser',
     data () {
         return {
             email: this.email,
