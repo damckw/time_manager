@@ -4,7 +4,14 @@
     <div class="home-content">
       <div class="overview-boxes">
         <div class="box">
-          <GraphPalette></GraphPalette>
+          <div class="right-side">
+            <GraphPalette></GraphPalette>
+          </div>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <ClockManager></ClockManager>
+          </div>
         </div>
         <div class="box">
           <div class="right-side">
@@ -62,6 +69,7 @@ import CreateUser from "../components/CreateUser";
 import DeleteUser from "../components/DeleteUser";
 import UpdateUser from "../components/UpdateUser";
 import GetUser from "../components/GetUser.vue";
+import ClockManager from "../components/ClockManager.vue";
 
 export default {
   name: 'Home',
@@ -74,7 +82,8 @@ export default {
     CreateUser,
     DeleteUser,
     UpdateUser,
-    GetUser
+    GetUser,
+    ClockManager
   },
   props: {
     msg: String
