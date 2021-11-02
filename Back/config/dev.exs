@@ -2,10 +2,10 @@ import Config
 
 # Configure your database
 config :theme01, Theme01.Repo,
-  username: System.get_env("PGUSER"),
-  password: System.get_env("PGPASSWORD"),
-  database: System.get_env("PGDATA"),
-  hostname: System.get_env("PGHOST"),
+  username: "postgres",
+  password: "postgres",
+  database: "theme01_dev",
+  hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
