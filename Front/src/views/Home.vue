@@ -5,7 +5,14 @@
     <div class="home-content">
       <div class="overview-boxes">
         <div class="box">
-          <GraphPalette></GraphPalette>
+          <div class="right-side">
+            <GraphPalette></GraphPalette>
+          </div>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <ClockManager></ClockManager>
+          </div>
         </div>
         <div class="box">
           <div class="right-side">
@@ -76,7 +83,8 @@ export default {
     CreateUser,
     DeleteUser,
     UpdateUser,
-    GetUser
+    GetUser,
+    ClockManager
   },
   props: {
     msg: String

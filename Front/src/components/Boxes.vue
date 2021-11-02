@@ -8,11 +8,6 @@
         </div>
         <div class="box">
           <div class="right-side">
-            <HelloWorld msg="TEST"></HelloWorld>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
             <GraphLine></GraphLine>
           </div>
         </div>
@@ -26,6 +21,11 @@
             <CountDown></CountDown>
           </div>
         </div>
+        <div class="box">
+          <div class="right-side">
+            <ClockManager></ClockManager>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -33,20 +33,20 @@
 
 <script>
 
-import HelloWorld from "./HelloWorld";
 import GraphLine from "./line";
 import GraphDonut from "./donut";
 import GraphPalette from "./palette";
 import CountDown from "./countDown";
+import ClockManager from "./ClockManager";
 
 export default {
   name: 'boxes',
   components: {
-    HelloWorld,
     GraphLine,
     GraphPalette,
     GraphDonut,
-    CountDown
+    CountDown,
+    ClockManager
   },
   props: {
     msg: String
