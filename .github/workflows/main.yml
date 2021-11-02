@@ -48,3 +48,20 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+        
+      - name: 'gcr.io/cloud-builders/docker'
+        entrypoint: 'bash'
+        args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
+        secretEnv: ['USERNAME', 'PASSWORD']
+        
+      - name: "gcr.io/cloud-builders/docker"
+        entrypoint: 'bash'
+        args: ['-c', 'docker run $$USERNAME/timemanager:latest']
+        secretEnv: ['USERNAME']
+        
+      availableSecrets:
+        secretManager:
+        - versionName: projects/timemanager-330915/secrets/docker-password/versions/1
+          env: 'PASSWORD'
+        - versionName: projects/timemanager-330915/secrets/docker-username/versions/1
+          env: 'USERNAME'
