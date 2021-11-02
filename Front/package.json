@@ -13,7 +13,6 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.2",
-    "vue-morris": "^1.1.0",
     "vue-router": "^3.2.0",
     "vuejs-countdown": "^0.2.1",
     "vuejs-countdown-timer": "^2.1.3"
