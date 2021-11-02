@@ -38,15 +38,7 @@ jobs:
 
       - name: Build and push
         id: docker_build
-        run: make dev
-        with:
-          context: ./
-          file: ./Dockerfile
-          builder: ${{ steps.buildx.outputs.name }}
-          push: true
-          tags:  ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+        run: make dev && docker push ${{ secrets.DOCKER_HUB_USERNAME }}/time_manager:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
