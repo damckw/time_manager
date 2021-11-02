@@ -99,7 +99,7 @@ export default {
     setUserId(userId) {
       console.log(userId);
       this.userId = userId;
-      this.getWorkingTimes();
+      // this.getWorkingTimes();
     },
     getWorkingTimes() {
       // var today = new Date();
