@@ -38,7 +38,7 @@ jobs:
 
       - name: Build and push
         id: docker_build
-        run: docker-compose up -d
+        run: make dev
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
