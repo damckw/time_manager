@@ -15,7 +15,6 @@ defmodule Theme01Web.UserController do
     with {:ok, %User{} = user} <- API.create_user(%{username: user_params, email: email_params}) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.user_path(conn, :show, user))
       |> render("show.json", user: user)
     end
   end
@@ -41,7 +40,7 @@ defmodule Theme01Web.UserController do
     render(conn, "index.json", users: users)
   end
   
-  def updateUser(conn, %{"id" => id, "username" => user_params, "email" => email_params}) do
+  def updateUser(conn, %{"userID" => id, "username" => user_params, "email" => email_params}) do
     try do
       API.get_user!(id)
     rescue
@@ -55,7 +54,7 @@ defmodule Theme01Web.UserController do
     end
   end
 
-  def deleteUser(conn, %{"id" => id}) do
+  def deleteUser(conn, %{"userID" => id}) do
     try do
       API.get_user!(id)
     rescue

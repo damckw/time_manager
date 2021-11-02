@@ -1,6 +1,7 @@
 <template>
   <div class="test">
     <!-- <Palette></Palette> -->
+    <p>User ID : {{this.userId}}</p>
     <div class="home-content">
       <div class="overview-boxes">
         <div class="box">
@@ -43,7 +44,7 @@
         </div>
         <div class="box">
           <div class="right-side">
-            <GetUser></GetUser>
+            <GetUser v-bind:setUserId="setUserId" v-model="userId"></GetUser>
           </div>
         </div>
       </div>
@@ -62,6 +63,7 @@ import CreateUser from "../components/CreateUser";
 import DeleteUser from "../components/DeleteUser";
 import UpdateUser from "../components/UpdateUser";
 import GetUser from "../components/GetUser.vue";
+// import Axios from "axios";
 
 export default {
   name: 'Home',
@@ -78,6 +80,33 @@ export default {
   },
   props: {
     msg: String
+  },
+  data() {
+    return {
+      userId: 0,
+      data: null,
+    }
+  },
+  methods:{
+    setUserId(userId) {
+      console.log(userId);
+      this.userId = userId;
+      this.getWorkingTimes();
+    },
+    getWorkingTimes() {
+      // var today = new Date();
+      // var endDate = today.getFullYear() + '-'+ (today.getMonth()+1) + '-' + today.getDate();
+      // var endTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      // var endDateTime = endDate +' '+ endTime;
+      // var startDate = today.getFullYear() + '-'+ (today.getMonth()+1) + '-' + (today.getDate() - 7);
+      // var startTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      // var startDateTime = startDate +' '+ startTime;
+      // Axios
+      //       .get(`http://localhost:4000/api/workingtimes${this.userId}?start=${startDateTime}&end=${endDateTime}`)
+      //       .then(response => (this.data = response.data, console.log(this.data)))
+      //       .catch((error) => { console.log('Error', error.message);
+      //       });
+    }
   }
 }
 </script>
