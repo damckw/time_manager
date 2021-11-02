@@ -38,7 +38,12 @@ jobs:
 
       - name: Build and push
         id: docker_build
-        run: make dev && docker-compose push ${{ secrets.DOCKER_HUB_USERNAME }}/timemanager:latest
+        run: 
+          make dev
+          docker tag maelledefay/back ${{ secrets.DOCKER_HUB_USERNAME }}/timemanager:latest
+          docker-compose push ${{ secrets.DOCKER_HUB_USERNAME }}/timemanager:latest
+          docker tag maelledefay/front:dev ${{ secrets.DOCKER_HUB_USERNAME }}/timemanager:latest
+          docker-compose push ${{ secrets.DOCKER_HUB_USERNAME }}/timemanager:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
