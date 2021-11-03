@@ -61,6 +61,10 @@ jobs:
           docker tag maelledefay/front:dev "gcr.io/$PROJECT_ID/$IMAGE:2.0.0"
           docker push "gcr.io/$PROJECT_ID/$IMAGE:2.0.0"
   
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+      - name: Deploy
+        run: |-
+          kubectl apply -f deployment_front.yaml
+          kubectl apply -f deployment_back.yaml
+          kubectl apply -f deployment_db.yaml
+          
 
