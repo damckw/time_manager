@@ -1,7 +1,7 @@
 <template>
   <div class="test">
 
-    <Header></Header>
+	<Header test='ok2'></Header>
 
     <!-- <Palette></Palette> -->
     <p>User ID : {{this.userId}}</p>

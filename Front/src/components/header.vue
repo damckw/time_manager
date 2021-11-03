@@ -4,7 +4,7 @@
 			<a href="#default" class="logo">TimeManager</a>
 			<div class="header-right">
 				<form action="/Profile" class="inline">
-					<button class="btn submit-button" @click="activeBtn = 'Profile'" :class="{active: activeBtn === 'Profile' }">Profile</button>
+					<button class="btn submit-button" @click="activeBtn = 'Profile'" :class="{active: activeBtn === 'Profile' }">{{test}}</button>
 				</form>
 			</div>
 			<Test></Test>
@@ -19,6 +19,7 @@
 		components: {
 			Test,
 		},
+		props: ['test'],
 		data () {
 			return {
 				activeBtn:''
