@@ -63,6 +63,7 @@ jobs:
   
       - name: Deploy
         run: |-
+          pwd
           kubectl apply -f deployment_front.yaml
           kubectl apply -f deployment_back.yaml
           kubectl apply -f deployment_db.yaml
