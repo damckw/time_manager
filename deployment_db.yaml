@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: elixir-test-service
+  name: vue-test-service
 spec:
   selector:
-    app: elixir-test-app
+    app: vue-test-app
   ports:
   - protocol: "TCP"
-    port: 6000
-    targetPort: 4000 
+    port: 60
+    targetPort: 4000
   type: LoadBalancer
 
 ---
@@ -16,20 +16,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: elixir-test-app
+  name: vue-test-app
 spec:
   selector:
     matchLabels:
-      app: elixir-test-app
+      app: vue-test-app
   replicas: 5
   template:
     metadata:
       labels:
-        app: elixir-test-app
+        app: vue-test-app
     spec:
       containers:
-      - name: elixir-test-app
-        image: elixir-test-app
+      - name: vue-test-app
+        image: vue-test-app
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
