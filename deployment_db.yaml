@@ -24,6 +24,8 @@ spec:
       labels:
         service: postgres
     spec:
+      seletctor:
+        name: db
       containers:
         - name: postgres
           image: postgres:10.1
