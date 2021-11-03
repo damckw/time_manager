@@ -56,6 +56,7 @@ export default {
 </script>
 
 <style>
+
 #countDown {
   font-size: 50px;
   width: auto;
