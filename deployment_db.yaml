@@ -13,23 +13,33 @@ spec:
 
 ---
 
-apiVersion: apps/v1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: vue-test-app
+  name: postgres
 spec:
-  selector:
-    matchLabels:
-      app: vue-test-app
-  replicas: 5
+  replicas: 1
   template:
     metadata:
       labels:
-        app: vue-test-app
+        service: postgres
     spec:
       containers:
-      - name: vue-test-app
-        image: postgres
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 5000
+        - name: postgres
+          image: postgres:10.1
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: db0
+            - name: POSTGRES_USER
+              value: mendix
+            - name: POSTGRES_PASSWORD
+              value: mendix
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql/data"
+              name: "mendix-pgdata"
+      volumes:
+        - hostPath:
+            path: "/home/docker/pgdata"
+          name: mendix-pgdata
