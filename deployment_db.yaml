@@ -24,7 +24,7 @@ spec:
       labels:
         service: postgres
     spec:
-      seletctor:
+      selector:
         name: db
       containers:
         - name: postgres
