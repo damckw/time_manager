@@ -7,8 +7,8 @@ spec:
     app: vue-test-app
   ports:
   - protocol: "TCP"
-    port: 6000
-    targetPort: 5000
+    port: 80
+    targetPort: 8080
   type: LoadBalancer
 
 ---
