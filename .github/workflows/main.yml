@@ -16,7 +16,9 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: autopilot-cluster-1    # TODO: update to cluster name
   GKE_ZONE: europe-west1   # TODO: update to cluster zone
-  IMAGE: timemanager
+  IMAGE_BACK: timemanager_back
+  IMAGE_FRONT: timemanager_front
+  VERSION: "1.0.0"
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -56,10 +58,10 @@ jobs:
 
       - name: Publish
         run: |-
-          docker tag maelledefay/back "gcr.io/$PROJECT_ID/$IMAGE:1.0.0"
-          docker push "gcr.io/$PROJECT_ID/$IMAGE:1.0.0"
-          docker tag maelledefay/front:dev "gcr.io/$PROJECT_ID/$IMAGE:2.0.0"
-          docker push "gcr.io/$PROJECT_ID/$IMAGE:2.0.0"
+          docker tag maelledefay/back "gcr.io/$PROJECT_ID/$IMAGE_BACK:$VERSION"
+          docker push "gcr.io/$PROJECT_ID/$IMAGE_BACK:$VERSION"
+          docker tag maelledefay/front:dev "gcr.io/$PROJECT_ID/$IMAGE_FRONT:$VERSION"
+          docker push "gcr.io/$PROJECT_ID/$IMAGE_FRONT:$VERSION"
   
       - name: Deploy
         run: |-
