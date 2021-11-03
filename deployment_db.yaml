@@ -16,30 +16,43 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+ name: postgres
 spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        service: postgres
-    spec:
-      containers:
-        - name: postgres
-          image: postgres:10.1
-          ports:
-            - containerPort: 5432
-          env:
-            - name: POSTGRES_DB
-              value: db0
-            - name: POSTGRES_USER
-              value: mendix
-            - name: POSTGRES_PASSWORD
-              value: mendix
-          volumeMounts:
-            - mountPath: "/var/lib/postgresql/data"
-              name: "mendix-pgdata"
-      volumes:
-        - hostPath:
-            path: "/home/docker/pgdata"
-          name: mendix-pgdata
+ strategy:
+   rollingUpdate:
+     maxSurge: 1
+     maxUnavailable: 1
+   type: RollingUpdate
+ replicas: 1
+ selector:
+   matchLabels:
+     app: postgres
+ template:
+   metadata:
+     labels:
+       app: postgres
+   spec:
+     containers:
+       - name: postgres
+         image: postgres:10
+         resources:
+           limits:
+             cpu: "1"
+             memory: "4Gi"
+           requests:
+             cpu: "1"
+             memory: "4Gi"
+         ports:
+           - containerPort: 5432
+         env:
+           - name: POSTGRES_PASSWORD
+             value: password
+           - name: PGDATA
+             value: /var/lib/postgresql/data/pgdata
+         volumeMounts:
+           - mountPath: /var/lib/postgresql/data
+             name: postgredb
+     volumes:
+       - name: postgredb
+         persistentVolumeClaim:
+           claimName: postgresql-pv
