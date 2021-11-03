@@ -28,7 +28,7 @@ defmodule Theme01Web.Router do
     post "/users", UserController, :createUser
     put "/users/:userID", UserController, :updateUser
     delete "/users/:userID", UserController, :deleteUser
-
+    get "/workingtimes/", WorkingTimeController, :index
     get "/workingtimes/:userID", WorkingTimeController, :getWorkingTime
     get "/workingtimes/:id", WorkingTimeController, :getWorkingTime
     post "/workingtimes/:userID", WorkingTimeController, :createWorkingTimeByUserID
