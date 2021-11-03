@@ -1,0 +1,71 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI TO DOCKERHUB
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: autopilot-cluster-1    # TODO: update to cluster name
+  GKE_ZONE: europe-west1   # TODO: update to cluster zone
+  IMAGE: timemanager
+  
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    
+      - name: Check Out Repo 
+        uses: actions/checkout@v2
+          
+      - uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+  
+      - uses: google-github-actions/get-gke-credentials@v0.2.1
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ secrets.GKE_SA_KEY }}
+  
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - run: |-
+          gcloud --quiet auth configure-docker
+          
+      - name: Build
+        id: docker_build
+        run:
+          make dev
+
+      - name: Publish
+        run: |-
+          docker tag maelledefay/back "gcr.io/$PROJECT_ID/$IMAGE:1.0.0"
+          docker push "gcr.io/$PROJECT_ID/$IMAGE:1.0.0"
+          docker tag maelledefay/front:dev "gcr.io/$PROJECT_ID/$IMAGE:2.0.0"
+          docker push "gcr.io/$PROJECT_ID/$IMAGE:2.0.0"
+  
+      - name: Deploy
+        run: |-
+          pwd
+          kubectl apply -f deployment_front.yaml
+          kubectl apply -f deployment_back.yaml
+          kubectl apply -f deployment_db.yaml
+          
+
