@@ -18,14 +18,14 @@ kind: Deployment
 metadata:
   name: postgres
 spec:
+  selector:
+    name: db
   replicas: 1
   template:
     metadata:
       labels:
         service: postgres
     spec:
-      selector:
-        name: db
       containers:
         - name: postgres
           image: postgres:10.1
