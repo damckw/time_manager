@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: elixir-test-app
-        image: elixir-test-app
+        image: gcr.io/timemanager-330915/timemanager_back:1.0.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
