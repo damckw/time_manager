@@ -1,36 +1,35 @@
 <template>
-  <div class="test">
-    <div class="header">
-      <a href="#default" class="logo">TimeManager</a>
-      <div class="header-right">
-        <a class="active" href="#home">Home</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
-      </div>
-    </div>
-
-  </div>
+	<div>
+		<div class="header">
+			<a href="#default" class="logo">TimeManager</a>
+			<div class="header-right">
+				<form action="/Profile" class="inline">
+					<button class="btn submit-button" @click="activeBtn = 'Profile'" :class="{active: activeBtn === 'Profile' }">Profile</button>
+				</form>
+			</div>
+			<Test></Test>
+		</div>
+	</div>
 </template>
 
 <script>
-  export default {
-      name: 'header',
-      data () {
-          return {
-
-          }
-      }
-  }
+	import Test from "../components/test.vue";
+	export default {
+		name: 'header',
+		components: {
+			Test,
+		},
+		data () {
+			return {
+				activeBtn:''
+			}
+	}
+}
 </script>
-
 
 
 <style scoped>
 * {box-sizing: border-box;}
-
-#test {
-
-}
 
 body { 
   margin: 0;
@@ -44,7 +43,7 @@ body {
   margin-top: -60px;
 }
 
-.header a {
+.header btn {
   float: left;
   color: black;
   text-align: center;
@@ -55,17 +54,17 @@ body {
   border-radius: 4px;
 }
 
-.header a.logo {
+.header btn.logo {
   font-size: 25px;
   font-weight: bold;
 }
 
-.header a:hover {
+.header btn:hover {
   background-color: #ddd;
   color: black;
 }
 
-.header a.active {
+.header btn.active {
   background-color: dodgerblue;
   color: white;
 }
@@ -74,8 +73,12 @@ body {
   float: right;
 }
 
+.header-center {
+  float: center;
+}
+
 @media screen and (max-width: 500px) {
-  .header a {
+  .header btn {
     float: none;
     display: block;
     text-align: left;
@@ -85,5 +88,28 @@ body {
     float: none;
   }
 }
+
+.active{
+  background-color:dodgerblue !important;
+}
+
+.btn {
+	/* box-shadow:inset 0px 1px 0px 0px #ffffff; */
+	/* background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%); */
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	margin:6px;
+	text-decoration:none;
+	/* text-shadow:0px 1px 0px #ffffff; */
+}
+
 </style>
 

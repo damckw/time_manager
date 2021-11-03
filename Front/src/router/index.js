@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
+import Profile from '../views/Profile'
 // import User from '../components/User.vue'
 // import DeleteUser from '../components/DeleteUser'
 // import UpdateUser from '../components/UpdateUser'
@@ -15,9 +16,9 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
-    name: 'Home',
-    component: Home
+    path: '/Profile',
+    name: 'Profile',
+    component: Profile
   },
   {
     path: '/',
