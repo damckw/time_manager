@@ -3,11 +3,16 @@
 		<div class="header">
 			<a href="Dashboard" class="logo">TimeManager</a>
 			<div class="header-right">
-				<form  :action="prop" class="inline">
-					<button class="btn submit-button" @click="activeBtn = 'Profile'" :class="{active: activeBtn === 'Profile'}">{{prop}}</button>
-					<button class="btn submit-button" @click="activeBtn = 'Login'" :class="{active: activeBtn === 'Login'}">Login</button>
-					<button class="btn submit-button" @click="activeBtn = 'Sign In'" :class="{active: activeBtn === 'Sign In'}">Sign In</button>
-				</form>
+				<!-- <form  :action="prop" class="inline">
+					<button class="btn submit-button" @click="activeBtn = 'Profile'" :class="{active: activeBtn === 'Profile'}">{{prop}}</button> -->
+					<!-- <button class="btn submit-button" @click="activeBtn = 'Login'" :class="{active: activeBtn === 'Login'}">Login</button>
+					<button class="btn submit-button" @click="activeBtn = 'Sign In'" :class="{active: activeBtn === 'Sign In'}">Sign In</button> -->
+					<div class="inline">
+						<a class="btn submit-button" href="Login">Login</a>
+						<a class="btn submit-button" href="Sign In">Sign In</a>
+						<a class="btn submit-button" :href="prop">{{prop}}</a>
+					</div>
+				<!-- </form> -->
 			</div>
 			<Test class="timer"></Test>
 		</div>
