@@ -1,13 +1,15 @@
 <template>
 	<div>
 		<div class="header">
-			<a href="#default" class="logo">TimeManager</a>
+			<a href="Dashboard" class="logo">TimeManager</a>
 			<div class="header-right">
 				<form  :action="prop" class="inline">
-					<button class="btn submit-button" @click="activeBtn = 'Profile'" :class="{active: activeBtn === 'Profile' }">{{prop}}</button>
+					<button class="btn submit-button" @click="activeBtn = 'Profile'" :class="{active: activeBtn === 'Profile'}">{{prop}}</button>
+					<button class="btn submit-button" @click="activeBtn = 'Login'" :class="{active: activeBtn === 'Login'}">Login</button>
+					<button class="btn submit-button" @click="activeBtn = 'Sign In'" :class="{active: activeBtn === 'Sign In'}">Sign In</button>
 				</form>
 			</div>
-			<Test></Test>
+			<Test class="timer"></Test>
 		</div>
 	</div>
 </template>
@@ -30,6 +32,15 @@
 
 
 <style scoped>
+
+@media (max-width: 1200px) {
+	.timer {
+		display: none;
+	}
+}
+
+
+
 * {box-sizing: border-box;}
 
 body { 
@@ -58,6 +69,7 @@ body {
 .header btn.logo {
   font-size: 25px;
   font-weight: bold;
+  display: block;
 }
 
 .header btn:hover {
