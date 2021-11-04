@@ -3,7 +3,7 @@ defmodule Theme01.API.WorkingTime do
   import Ecto.Changeset
 
   schema "workingtimes" do
-    field :end, :naive_datetime
+    field :end, :naive_datetime, default: nil, null: true
     field :start, :naive_datetime
     field :user, :id
 
