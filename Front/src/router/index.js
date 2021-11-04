@@ -21,7 +21,7 @@ const routes = [
     component: Profile
   },
   {
-    path: '/',
+    path: '/Dashboard',
     name: 'Home',
     component: Home
   }

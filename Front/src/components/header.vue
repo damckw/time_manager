@@ -3,8 +3,8 @@
 		<div class="header">
 			<a href="#default" class="logo">TimeManager</a>
 			<div class="header-right">
-				<form action="/Profile" class="inline">
-					<button class="btn submit-button" @click="activeBtn = 'Profile'" :class="{active: activeBtn === 'Profile' }">{{test}}</button>
+				<form  :action="prop" class="inline">
+					<button class="btn submit-button" @click="activeBtn = 'Profile'" :class="{active: activeBtn === 'Profile' }">{{prop}}</button>
 				</form>
 			</div>
 			<Test></Test>
@@ -19,7 +19,7 @@
 		components: {
 			Test,
 		},
-		props: ['test'],
+		props: ['prop'],
 		data () {
 			return {
 				activeBtn:''

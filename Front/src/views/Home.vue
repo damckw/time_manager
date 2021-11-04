@@ -1,7 +1,7 @@
 <template>
   <div class="test">
 
-	<Header test='ok2'></Header>
+	<Header prop='Profile'></Header>
 
     <!-- <Palette></Palette> -->
     <p>User ID : {{this.userId}}</p>

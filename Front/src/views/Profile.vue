@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-	<Header test='Dashboard'></Header>
+	<Header prop='Dashboard'></Header>
   </div>
 </template>
 
