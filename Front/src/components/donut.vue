@@ -1,8 +1,11 @@
 <template>
 	<div class="chart-wrap">
-		<div id="chart">
+  <b-card title="Card Title" style="max-width: 40rem;" class="mb-2" >
+    <div id="chart">
 			<apexchart type="donut" width="380" :options="chartOptions" :series="series"></apexchart>
 		</div>
+  </b-card>
+
 	</div>
 </template>
 

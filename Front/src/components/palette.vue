@@ -1,5 +1,6 @@
 <template>
   <div class="Palette">
+  <b-card title="Card Title" style="max-width: 20rem;" class="mb-2" >
     <p>
       <label><b>Select Theme Palette</b> </label> &nbsp;
       <select @change="updateTheme">
@@ -21,8 +22,11 @@
       type="bar"
       :options="chartOptions"
       :series="series"
-    ></apexcharts>
-  </div>
+    >
+    </apexcharts>
+
+  </b-card>
+    </div>
 </template>
 
 <script>

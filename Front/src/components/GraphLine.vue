@@ -1,6 +1,8 @@
 <template>
 	<div id="line">
-	<apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
+		<b-card title="Card Title" style="max-width: 40rem;" class="mb-2" >
+			<apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
+		</b-card>
 	</div>
 </template>
 
@@ -8,7 +10,7 @@
 import VueApexCharts from "vue-apexcharts";
 
 export default {
-  name: "line2",
+  name: "Line",
   components: {
     apexchart: VueApexCharts
   },

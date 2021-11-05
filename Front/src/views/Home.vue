@@ -1,127 +1,49 @@
 <template>
   <div class="test">
-
-	<Header prop='Profile'></Header>
-
-    <!-- <Palette></Palette> -->
-    <p>User ID : {{this.userId}}</p>
-    <div class="home-content">
-      <div class="overview-boxes">
-        <div class="box">
-          <div class="right-side">
-            <GraphPalette></GraphPalette>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <ClockManager></ClockManager>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <Timer></Timer>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <GraphLine></GraphLine>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <GraphDonut></GraphDonut>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <CountDown></CountDown>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <CreateUser></CreateUser>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <DeleteUser></DeleteUser>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <UpdateUser></UpdateUser>
-          </div>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <GetUser v-bind:setUserId="setUserId" v-model="userId"></GetUser>
-          </div>
-        </div>
-      </div>
-    </div>
+    <b-container class="header-style">
+			<b-row >
+				<b-col>
+          <WorkingTime></WorkingTime>
+        </b-col>
+				<b-col>
+          <Donut></Donut>
+        </b-col>
+				<b-col>
+          <GraphLine></GraphLine>
+        </b-col>
+        <b-col>
+          <Palette></Palette>
+        </b-col>
+			</b-row>
+		</b-container>
+    <b-container class="header-style">
+			<b-row >
+				<b-col>
+        <TabsTime></TabsTime>
+        </b-col>
+			</b-row>
+		</b-container>
+    
   </div>
 </template>
 
 <script>
-
-import Timer from "../components/Timer";
-import GraphLine from "../components/line";
-import GraphDonut from "../components/donut";
-import GraphPalette from "../components/palette";
-import CountDown from "../components/countDown";
-import CreateUser from "../components/CreateUser";
-import DeleteUser from "../components/DeleteUser";
-import UpdateUser from "../components/UpdateUser";
-import GetUser from "../components/GetUser.vue";
-import ClockManager from "../components/ClockManager.vue";
-import Header from "../components/header.vue";
+import WorkingTime from '../components/WorkingTime.vue'
+import Donut from '../components/donut.vue'
+import Palette from '../components/palette.vue'
+import GraphLine from '../components/GraphLine.vue'
+import TabsTime from '../components/TabsTime.vue'
 // import Axios from "axios";
 
 export default {
   name: 'Home',
   components: {
-    Timer,
+    WorkingTime,
+    Donut,
     GraphLine,
-    GraphPalette,
-    GraphDonut,
-    CountDown,
-    CreateUser,
-    DeleteUser,
-    UpdateUser,
-    GetUser,
-    ClockManager,
-    Header
+    Palette,
+    TabsTime,
   },
-  props: {
-    msg: String
-  },
-  data() {
-    return {
-      userId: 0,
-      data: null,
-    }
-  },
-  methods:{
-    setUserId(userId) {
-      console.log(userId);
-      this.userId = userId;
-      this.getWorkingTimes();
-    },
-    getWorkingTimes() {
-      // var today = new Date();
-      // var endDate = today.getFullYear() + '-'+ (today.getMonth()+1) + '-' + today.getDate();
-      // var endTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      // var endDateTime = endDate +' '+ endTime;
-      // var startDate = today.getFullYear() + '-'+ (today.getMonth()+1) + '-' + (today.getDate() - 7);
-      // var startTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      // var startDateTime = startDate +' '+ startTime;
-      // Axios
-      //       .get(`http://localhost:4000/api/workingtimes${this.userId}?start=${startDateTime}&end=${endDateTime}`)
-      //       .then(response => (this.data = response.data, console.log(this.data)))
-      //       .catch((error) => { console.log('Error', error.message);
-      //       });
-    }
-  }
 }
 </script>
 

@@ -1,16 +1,18 @@
 <template>
   <div class="about">
-	<Header prop='Dashboard'></Header>
+    <b-card title="Card Title" style="max-width: 40rem;" class="mb-2" >
+			<p>Nom / username</p>
+      <p>email</p>
+      <p>mdp</p>
+		</b-card>
   </div>
 </template>
 
 <script>
-import Header from "../components/header.vue";
 
 export default {
   name: 'Home',
   components: {
-    Header
   },
   data() {
     return {

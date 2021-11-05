@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <p>{{userid}}</p>
     <div class="btn-group">
         <button v-on:click="refresh">refresh</button>
         <button v-on:click="clock">clock</button>
@@ -17,7 +17,11 @@
 </script>
 
 <script>
+
+import axios from 'axios'
+import moment from 'moment'
 export default {
+  props: ['userid'],
   name: "ClockManager",
   data() {
       return {
@@ -40,16 +44,19 @@ export default {
     clock() {
         if (!this.play) {
             this.clockIn = true;
-            this.startDateTime = this.currentDateTime();
+            axios.post(`http://localhost:4000/api/workingtimes/${this.userid}`, {
+            })
+
         }
         this.play = !this.play;
     },
     currentDateTime() {
-      const current = new Date();
+      axios.get()
+      /*const current = new Date();
       const date = current.getFullYear()+'-'+(current.getMonth()+1)+'-'+current.getDate();
       const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
       const dateTime = date +' '+ time;
-      return dateTime;
+      return dateTime;*/
     },
   }
 };

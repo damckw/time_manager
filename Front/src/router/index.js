@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import Profile from '../views/Profile'
+import Connexion from '../views/Connexion.vue'
 // import User from '../components/User.vue'
 // import DeleteUser from '../components/DeleteUser'
 // import UpdateUser from '../components/UpdateUser'
@@ -21,10 +22,17 @@ const routes = [
     component: Profile
   },
   {
-    path: '/Dashboard',
+    path: '/',
     name: 'Home',
     component: Home
-  }
+  },
+  {
+    path: '/Connexion',
+    name: 'Connexion',
+    component: Connexion
+  },
+  
+  
   // {
   //   path: '/user',
   //   name: 'User',
