@@ -23,7 +23,7 @@ defmodule Theme01.Auth.AuthFlow do
 
   @impl true
   def create(conn, user, _config) do
-    claims = %{"user_id" => user.id}
+    claims = %{"user_id" => user.id, "x_csrf_token" => Plug.CSRFProtection.get_csrf_token()}
     generated_token = Token.generate_and_sign!(claims)
     conn = 
       conn 

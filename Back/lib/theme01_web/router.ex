@@ -53,8 +53,13 @@ defmodule Theme01Web.Router do
   scope "/api/auth", Theme01Web.Controllers do
     pipe_through :api
 
-    post "/register", UserRegistration, :register
     post "/login", UserLogin, :login
+  end
+
+  scope "/api/auth", Theme01Web.Controllers do
+    pipe_through [:api, :api_protected]
+
+    post "/register", UserRegistration, :register
   end
 
 end
