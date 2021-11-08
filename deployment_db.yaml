@@ -78,8 +78,6 @@ kind: Service
 metadata:
   name: postgres
 spec:
-  capacity:
-    storage: 10Gi
   ports:
     - port: 5432
   selector:
