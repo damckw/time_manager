@@ -23,12 +23,13 @@ defmodule Theme01.Auth.AuthFlow do
 
   @impl true
   def create(conn, user, _config) do
-    claims = %{"user_id" => user.id, "role" => user.role}
+    claims = %{"user_id" => user.id}
     generated_token = Token.generate_and_sign!(claims)
     conn = 
       conn 
       |> Conn.put_private(:api_access_token, generated_token)
       |> Conn.put_private(:role, user.role)
+      |> Conn.put_private(:id, user.id)
     {conn, user}
   end
 

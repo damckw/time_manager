@@ -7,7 +7,7 @@ defmodule Theme01Web.Controllers.UserLogin do
   @spec login(Conn.t(), UserPassLogin.t()) :: Conn.t()
   def login(conn, user_pass_login) do
     with {:ok, conn} <- conn |> Pow.Plug.authenticate_user(user_pass_login) do
-      json(conn, %{data: %{token: conn.private[:api_access_token], role: conn.private[:role]}})
+      json(conn, %{data: %{token: conn.private[:api_access_token], role: conn.private[:role], id: conn.private[:id]}})
     else
       {:error, conn} ->
         conn
