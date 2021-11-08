@@ -23,7 +23,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 3Gi
+      storage: 300Gi
 
 ---
 
@@ -78,6 +78,8 @@ kind: Service
 metadata:
   name: postgres
 spec:
+  capacity:
+    storage: 300Mi
   ports:
     - port: 5432
   selector:
