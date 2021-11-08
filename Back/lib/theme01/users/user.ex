@@ -4,6 +4,7 @@ defmodule Theme01.Users.User do
 
   schema "users" do
     field :role, Ecto.Enum, values: [:user, :manager, :general_manager], default: :user
+    field :username, :string
 
     pow_user_fields()
 
@@ -12,7 +13,7 @@ defmodule Theme01.Users.User do
   def changeset(user_or_changeset, attrs) do
     user_or_changeset
     |> pow_changeset(attrs)
-    |> Ecto.Changeset.cast(attrs, [:role])
-    |> Ecto.Changeset.validate_required([:role])
+    |> Ecto.Changeset.cast(attrs, [:role, :username])
+    |> Ecto.Changeset.validate_required([:role, :username])
   end
 end

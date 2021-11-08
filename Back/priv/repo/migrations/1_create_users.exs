@@ -6,6 +6,7 @@ defmodule Theme01.Repo.Migrations.CreateUsers do
     create table(:users) do
       add :email, :string, null: false
       add :password_hash, :string, redact: true
+      add ::username, :string, null: false
 
       timestamps()
     end

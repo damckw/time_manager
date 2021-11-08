@@ -31,7 +31,7 @@ defmodule Theme01Web.Router do
     delete "/workingtimes/:id", WorkingTimeController, :deleteWorkingTimeByID
 
     get "/clocks/:userID", ClockController, :getClocksByUserID
-    post "/clocks/:userID", ClockController, :createClockByUserID
+    post "/clocks/:userID", ClockController, :setClockByUserID
   
     # TODO
     # GET method : http://localhost:4000/api/users?email=XXX&username=YYY

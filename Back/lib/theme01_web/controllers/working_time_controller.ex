@@ -53,7 +53,7 @@ defmodule Theme01Web.WorkingTimeController do
 
   
 
-  def updateWorkingTimeByID(conn, %{"id" => id, "start" => start_params, "end" => end_params, "user" => user_id}) do
+  def updateWorkingTimeByID(conn, %{"id" => id, "start" => start_params, "end" => end_params}) do
     try do
       API.get_working_time!(id)
     rescue
@@ -65,7 +65,6 @@ defmodule Theme01Web.WorkingTimeController do
     with {:ok, %WorkingTime{} = working_time} <- API.update_working_time(working_time,%{
       start: NaiveDateTime.from_iso8601!(start_params),
       end: NaiveDateTime.from_iso8601!(end_params),
-      user: user_id
       }) do
       render(conn, "show.json", working_time: working_time)
     end
