@@ -8,7 +8,7 @@ Repo.insert! %WorkingTime{
 
 start: %NaiveDateTime{
     year: 2000,
-    month: 2,
+    month: 1,
     day: 29,
     hour: 23,
     minute: 0,
@@ -45,7 +45,7 @@ Repo.insert! %WorkingTime{
     
     end: %NaiveDateTime{
         year: 2000,
-        month: 2,
+        month: 3,
         day: 29,
         hour: 23,
         minute: 0,

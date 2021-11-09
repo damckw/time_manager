@@ -1,6 +1,16 @@
 <template>
   <div id="app">
-    <b-card title="Card Title" style="max-width: 40rem;" class="mb-2" >
+    <b-card title="Card Title" style="max-width: 50rem;" class="mb-2" >
+    <b-row>
+      <b-col md="auto">
+        <b-calendar v-model="value" @context="onContext" locale="en-US"></b-calendar>
+      </b-col>
+      <b-col md="auto">
+        <b-calendar v-model="value1" @context="onContext" locale="en-US"></b-calendar>
+      </b-col>
+    </b-row>
+          <b-button style="width: 100px; height: 50px" v-on:click="setValue">Validate</b-button>
+
     <template>
   <div>
     <mdb-tbl>
@@ -33,9 +43,33 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name:"TabsTime",
+    data() {
+      return {
+        value: '',
+        context: null,
+        value1: '',
+        context1: null,
 
+      }
+    },
+    methods: {
+      onContext(ctx) {
+        this.context = ctx
+      },
+      onContext1(ctx) {
+        this.context1 = ctx
+      },
+      setValue: function() {
+        axios
+        .get(`http://localhost:4000/api/workingtimes/:7`, {
+          start: this.value,
+          end: this.valu1,
+        })
+      }
+    }
 };
 </script>
 

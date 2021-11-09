@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import Profile from '../views/Profile'
 import Connexion from '../views/Connexion.vue'
+import Login from '../components/Login.vue'
 // import User from '../components/User.vue'
 // import DeleteUser from '../components/DeleteUser'
 // import UpdateUser from '../components/UpdateUser'
@@ -30,6 +31,11 @@ const routes = [
     path: '/Connexion',
     name: 'Connexion',
     component: Connexion
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component: Login
   },
   
   
