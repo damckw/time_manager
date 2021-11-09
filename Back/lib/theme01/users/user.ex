@@ -4,8 +4,7 @@ defmodule Theme01.Users.User do
 
   schema "users" do
     field :role, Ecto.Enum, values: [:user, :manager, :general_manager], default: :user
-    field :username, :string
-
+    field :username, :string, null: true
     pow_user_fields()
 
     timestamps()
