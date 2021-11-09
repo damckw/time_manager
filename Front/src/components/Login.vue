@@ -24,9 +24,8 @@ import axios from 'axios'
                 email: this.email,
                 password: this.password,
             }).then(Response => (this.info = Response.data,
-                localStorage.email = this.info.email,
-                localStorage.token = this.info.token,
-                localStorage.token = this.info.role)) 
+                localStorage.token = this.info.data.token,
+                localStorage.role = this.info.data.role)) 
             .catch((error) => { console.log('Error', error.message);
             });
             console.log(this.info)
