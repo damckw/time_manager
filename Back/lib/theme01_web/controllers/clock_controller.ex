@@ -12,23 +12,30 @@ defmodule Theme01Web.ClockController do
     render(conn, "index.json", clocks: clocks)
   end
 
-  def setClockByUserID(conn, %{"userID" => id, "time" => time_param, "status" => status_param}) do
+  def setClockByUserID(conn, %{"userID" => id}) do
     try do
-      Repo.get_by(Clock, %{user: id})
+      clock = Repo.get_by!(Clock, %{user: id, status: true})
+      API.create_working_time(%{
+        start: clock.time,
+        end: NaiveDateTime.utc_now(),
+        user: clock.user
+        })
+      with {:ok, %Clock{} = clock} <- API.update_clock(clock, %{status: false}) do
+          render(conn, "show.json", %{clock: clock})
+      end
     rescue
       Ecto.NoResultsError ->
-        with {:ok, %Clock{} = clock} <- API.create_clock(%{time: NaiveDateTime.from_iso8601!(time_param), status: status_param}) do
-          conn
-          |> put_status(:created)
-          |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
-          |> render("show.json", clock: clock)
+        try do
+          clock = Repo.get_by!(Clock, %{user: id, status: false})
+          with {:ok, %Clock{} = clock} <- API.update_clock(clock, %{time: NaiveDateTime.utc_now(), status: true}) do
+            render(conn, "show.json", %{clock: clock})
+          end
+        rescue
+          Ecto.NoResultsError ->
+          with {:ok, %Clock{} = clock} <- API.create_clock(%{time: NaiveDateTime.utc_now(), status: true, user: id}) do
+            render(conn, "show.json", %{clock: clock})
+          end
         end
-    end
-  
-    clock = Repo.get_by(Clock, %{user: id})
-
-    with {:ok, %Clock{} = clock} <- API.update_clock(clock, %{time: NaiveDateTime.from_iso8601!(time_param), status: status_param}) do
-      render(conn, "show.json", clock: clock)
     end
   end
 

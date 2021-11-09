@@ -1,33 +1,28 @@
 defmodule Theme01Web.Router do
   use Theme01Web, :router
-  
-  pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {Theme01Web.LayoutView, :root}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-  end
+  use Pow.Phoenix.Router
+
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Theme01.Auth.AuthFlow, otp_app: :theme01
   end
 
-  scope "/", Theme01Web do
-    pipe_through :browser
-
-    get "/", PageController, :index
+  pipeline :api_protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Theme01Web.AuthErrorHandler
   end
+  
 
   scope "/api", Theme01Web do
-    pipe_through :api
+    pipe_through [:api, :api_protected]
 
     get "/users", UserController, :getUserID
     get "/users/:userID", UserController, :getUserByID
     post "/users", UserController, :createUser
     put "/users/:userID", UserController, :updateUser
     delete "/users/:userID", UserController, :deleteUser
+
     get "/workingtimes/", WorkingTimeController, :index
     get "/workingtimes/:userID", WorkingTimeController, :getWorkingTime
     get "/workingtimes/:id", WorkingTimeController, :getWorkingTime
@@ -36,7 +31,7 @@ defmodule Theme01Web.Router do
     delete "/workingtimes/:id", WorkingTimeController, :deleteWorkingTimeByID
 
     get "/clocks/:userID", ClockController, :getClocksByUserID
-    post "/clocks/:userID", ClockController, :createClockByUserID
+    post "/clocks/:userID", ClockController, :setClockByUserID
   
     # TODO
     # GET method : http://localhost:4000/api/users?email=XXX&username=YYY
@@ -55,37 +50,16 @@ defmodule Theme01Web.Router do
     #  a POST method : http://localhost:4000/api/clocks/:userID
   end
 
+  scope "/api/auth", Theme01Web.Controllers do
+    pipe_through :api
 
-  # Other scopes may use custom stacks.
-  # scope "/api", BootstrapWeb do
-  #   pipe_through :api
-  # end
+    post "/login", UserLogin, :login
+  end
 
-  # Enables LiveDashboard only for development
-  #
-  # If you want to use the LiveDashboard in production, you should put
-  # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
-  # you can use Plug.BasicAuth to set up some basic authentication
-  # as long as you are also using SSL (which you should anyway).
-  # if Mix.env() in [:dev, :test] do
-  #   import Phoenix.LiveDashboard.Router
+  scope "/api/auth", Theme01Web.Controllers do
+    pipe_through [:api, :api_protected]
 
-  #   scope "/" do
-  #     pipe_through :browser
-  #     live_dashboard "/dashboard", metrics: Theme01Web.Telemetry
-  #   end
-  # end
+    post "/register", UserRegistration, :register
+  end
 
-  # Enables the Swoosh mailbox preview in development.
-  #
-  # Note that preview only shows emails that were sent by the same
-  # node running the Phoenix server.
-  # if Mix.env() == :dev do
-  #   scope "/dev" do
-  #     pipe_through :browser
-
-  #     forward "/mailbox", Plug.Swoosh.MailboxPreview
-  #   end
-  # end
 end

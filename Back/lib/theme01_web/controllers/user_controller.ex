@@ -30,7 +30,7 @@ defmodule Theme01Web.UserController do
     render(conn, "show.json", user: user)
   end
 
-  def getUserID(conn, map = %{"username" => username, "email" => email}) do
+  def getUserID(conn, %{"username" => username, "email" => email}) do
     user = API.get_user_by!(%{username: username, email: email})
     render(conn, "show.json", user: user)
   end
