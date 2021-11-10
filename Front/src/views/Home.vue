@@ -1,29 +1,29 @@
 <template>
   <div class="test">
+    
     <b-container>
 			<b-row >
-				<b-col>
+				<b-col cols="4">
           <WorkingTime></WorkingTime>
         </b-col>
-				<b-col>
-          <Donut></Donut>
-        </b-col>
-        <b-col>
-          <Palette></Palette>
+				<b-col cols="8">
+          <b-card no-body>
+            <b-tabs card>
+              <b-tab title="Donut" active>
+                <Donut></Donut>
+              </b-tab>
+              <b-tab title="Palette">
+                <Palette></Palette>
+              </b-tab>
+              <b-tab title="Graph">
+                <GraphLine></GraphLine>
+              </b-tab>
+            </b-tabs>
+          </b-card>
+          <TabsTime></TabsTime>
         </b-col>
 			</b-row>
 		</b-container>
-    <b-container>
-			<b-row >
-        <b-col>
-          <GraphLine></GraphLine>
-        </b-col>
-				<b-col>
-        <TabsTime></TabsTime>
-        </b-col>
-			</b-row>
-		</b-container>
-    
   </div>
 </template>
 

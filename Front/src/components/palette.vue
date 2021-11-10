@@ -1,6 +1,5 @@
 <template>
   <div class="Palette">
-  <b-card title="Card Title" style="max-width: 20rem;" class="mb-2" >
     <p>
       <label><b>Select Theme Palette</b> </label> &nbsp;
       <select @change="updateTheme">
@@ -21,16 +20,16 @@
       height="350"
       type="bar"
       :options="chartOptions"
-      :series="series"
+      :series="this.workinghours"
     >
     </apexcharts>
-
-  </b-card>
+    {{this.workingtimes}}
     </div>
 </template>
 
 <script>
 import VueApexCharts from "vue-apexcharts";
+import moment from 'moment';
 
 export default {
   name: "palette",
@@ -39,6 +38,8 @@ export default {
   },
   data: function() {
     return {
+      workingtimes: [],
+      workinghours:[],
       chartOptions: {
         chart: {
           id: "basic-bar",
@@ -55,25 +56,72 @@ export default {
           }
         },
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995]
+          categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
         }
       },
       series: [
         {
-          name: "series-1",
           data: [30, 40, 45, 30, 49]
         }
       ]
     };
   },
+  mounted: function() {
+    this.getWorkingTimes();
+  },
   methods: {
-    updateTheme(e) {
+    updateTheme: function(e) {
       this.chartOptions = {
         theme: {
           palette: e.target.value
         }
       };
-    }
+    },
+    getWorkingTimes: function() {
+        var start = moment().isoWeekday(1).format('YYYY-MM-DD');
+        var end = moment().isoWeekday(5).format('YYYY-MM-DD');
+        fetch(`http://localhost:4000/api/workingtimes/${localStorage.id}?start=${start} 00:00:00&end=${end} 00:00:00`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => this.workingtimes = data.data)
+      // .then(this.computeWorkingHours)
+      .catch((error) => { console.log('Error', error.message)});
+    },
+    // computeWorkingHours: function() {
+    //   var date = moment().isoWeekday(1);
+    //   var fridayDate = moment().isoWeekday(6);
+    //   var hours = 0;
+    //   var count = 0;
+    
+    //   while (!date.isSame(fridayDate, 'day')) {
+    //     if (moment(this.workingtimes[count].start).isSame(date))
+    //     {
+    //       // var now = moment(new Date()); //todays date
+    //       // var end = moment("2015-12-1"); // another date
+    //       // var duration = moment.duration(now.diff(end));
+    //       // var days = duration.asDays();
+    //       console.log(this.workingtimes[count][start]);
+    //       var start = moment(this.workingtimes[count].start, moment.ISO_8601);
+    //       var end = moment(this.workingtimes[count].end, moment.ISO_8601);
+    //       var duration = moment.duration(start.diff(end));
+    //       hours += duration.asHours();
+    //     } else {
+    //       debugger
+    //       this.workinghours.push(hours);
+    //       date = date.add(1, 'days');
+    //       hours = 0;
+    //       if (count <= this.workingtimes.length) {
+    //         count += 1;
+    //       }
+    //     }
+    //     debugger
+    //   }
+      
+    // }
   }
 };
 </script>
