@@ -45,7 +45,7 @@ defmodule Theme01Web.UserController do
     render(conn, "index.json", users: users)
   end
   
-  def updateUser(conn, %{"userID" => id, "username" => user_params, "email" => email_params}) do
+  def updateUser(conn, %{"current_password" => current_password, "email" => email, "new_pasword" => new_pasword, "role" => role, "userID" => id, "username" => username}) do
     try do
       Repo.get_by!(User, %{id: id})
     rescue
@@ -57,7 +57,7 @@ defmodule Theme01Web.UserController do
     with {:ok, %User{} = user} <- 
       # API.update_user(user, %{username: user_params, email: email_params})
       user
-      |> User.changeset(%{username: user_params, email: email_params})
+      |> User.changeset(%{current_password: current_password, email: email, new_pasword: new_pasword, role: role, username: username})
       |> Repo.update()
       do
       render(conn, "show.json", user: user)

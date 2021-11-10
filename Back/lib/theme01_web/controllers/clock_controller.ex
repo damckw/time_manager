@@ -39,7 +39,7 @@ defmodule Theme01Web.ClockController do
     end
   end
 
-  def getClockByUserID(conn, %{"userID" => id}) do
+  def getClocksByUserID(conn, %{"userID" => id}) do
     try do
       Repo.get_by(Clock, %{user: id})
     rescue
