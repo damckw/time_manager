@@ -1,6 +1,6 @@
 <template>
 	<div id="line">
-		<b-card title="Card Title" style="max-width: 40rem;" class="mb-2" >
+		<b-card class="carde" >
 			<apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
 		</b-card>
 	</div>
@@ -53,4 +53,13 @@ export default {
 }
 </script>
 
+<style>
+
+.carde {
+	width: 100%;
+	height: 100%;
+
+}
+
+</style>
 
