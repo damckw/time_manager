@@ -1,31 +1,32 @@
 <template>
   <div>
-    <b-card class="class1">
+    <b-card class="cardstyle">
 
-      <b-card-text>
+      <b-card-text class="titlestyle">
         WorkingTime
       </b-card-text>
-      <b-button v-on:click='getStart'>{{ str }}</b-button>
+      <b-button v-on:click='getStart' class="buttonstyle">{{ str }}</b-button>
       <b-card-text>
-
+        {{ }}
       </b-card-text>
   </b-card>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
     name: 'WorkingTime',
     data () {
         return {
           info: '',
-          str: 'Arrive'
+          str: 'Arrive',
+          workingtime: ''
         }
     },
     mounted() {
-      axios.get(`http://localhost:4000/api/clocks/${localStorage.id}`, {
+      fetch(`http://localhost:4000/api/clocks/${localStorage.id}`, {
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${localStorage.token}`
         }
@@ -35,17 +36,12 @@ export default {
     },
     methods: {
       getStart: function() {
-        console.log(localStorage.id)
-        console.log(localStorage.token)
-        // if (this.info.data.status == true)
-        //   this.str = "Departure"
-        // else
-        //   this.str = "Arrive"
-        axios.post(`http://localhost:4000/api/clocks/${localStorage.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.token.replace(/(\r\n|\n|\r)/gm, "")}`
-        }
-      })
+        fetch(`http://localhost:4000/api/clocks/${localStorage.id}`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.token}`
+          }
+        })
       .then(Response => (this.info = Response.data))
       .catch((error) => { console.log('Error', error.message)});
       }
@@ -54,9 +50,26 @@ export default {
 </script>
 
 <style>
-.class1 {
+.cardstyle {
+  background-color: #EFEBE9 !important;
   height: 700px;
   width: 300px;
-  margin-top: 40px;
+  margin-top: 30px;
+  border: rgb(3, 3, 3) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+}
+
+.titlestyle {
+  color: #795548;
+  font-size: 40px;
+  font-family: Florance;
+}
+
+.buttonstyle {
+  margin-top: 30px;
+  width: 200px;
+  background-color: #795548 !important;
+  font-family: Florance;
 }
 </style>
