@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: vue-test-service
+  name: timemanager-front-service
 spec:
   selector:
-    app: vue-test-app
+    app: timemanager-front-app
   ports:
   - protocol: "TCP"
     port: 80
@@ -16,19 +16,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: vue-test-app
+  name: timemanager-front-app
 spec:
   selector:
     matchLabels:
-      app: vue-test-app
+      app: timemanager-front-app
   replicas: 1
   template:
     metadata:
       labels:
-        app: vue-test-app
+        app: timemanager-front-app
     spec:
       containers:
-      - name: vue-test-app
+      - name: timemanager-front-app
         image: gcr.io/timemanager-330915/timemanager_front:1.0.0
         imagePullPolicy: IfNotPresent
         ports:
