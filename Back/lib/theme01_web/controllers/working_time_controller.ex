@@ -14,9 +14,10 @@ defmodule Theme01Web.WorkingTimeController do
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
-  def createWorkingTimeByUserID(conn, %{"userID" => user_id}) do
+  def createWorkingTimeByUserID(conn, %{"userID" => user_id, "start" => start_param, "end" => end_param}) do
     with {:ok, %WorkingTime{} = working_time} <- API.create_working_time(%{
-      start: NaiveDateTime.utc_now(),
+      start: NaiveDateTime.from_iso8601!(start_param),
+      end: NaiveDateTime.from_iso8601!(end_param),
       user: user_id
       }) do
       conn

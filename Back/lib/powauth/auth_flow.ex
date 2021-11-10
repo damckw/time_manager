@@ -4,7 +4,6 @@ defmodule Theme01.Auth.AuthFlow do
   require Logger
 
   alias Plug.Conn
-  alias Plug.CSRFProtection
   alias Theme01.Auth.Token
 
   @impl true
