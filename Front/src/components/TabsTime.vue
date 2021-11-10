@@ -1,40 +1,21 @@
 <template>
   <div id="app">
-    <b-card title="Card Title" style="max-width: 50rem;" class="mb-2" >
+    <b-card title="Working Times" style="max-width: 50rem;" class="mb-2" >
     <b-row>
-      <b-col md="auto">
-        <b-calendar v-model="value" @context="onContext" locale="en-US"></b-calendar>
+      <b-col cols="5">
+        <label for="start-datepicker">Start</label>
+        <b-form-datepicker id="start-datepicker" size="sm" v-model="start" class="mb-2"></b-form-datepicker>
       </b-col>
-      <b-col md="auto">
-        <b-calendar v-model="value1" @context="onContext" locale="en-US"></b-calendar>
+      <b-col cols="5">
+        <label for="end-datepicker">End</label>
+        <b-form-datepicker id="end-datepicker" size="sm" v-model="end" class="mb-2"></b-form-datepicker>
+      </b-col>
+      <b-col cols="2" align-self="center">
+        <b-button v-on:click="onSubmit" size= "sm">Submit</b-button>
       </b-col>
     </b-row>
-          <b-button style="width: 100px; height: 50px" v-on:click="setValue">Validate</b-button>
-
-    <template>
-  <div>
-    <mdb-tbl>
-      <mdb-tbl-body>
-        <tr>
-          <th>1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th>3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </mdb-tbl-body>
-    </mdb-tbl>
+    <b-table id="workingtimes-table" striped hover :items="this.workingtimes" :fields="fields"></b-table>
+    </b-card>
   </div>
 </template>
 
@@ -43,31 +24,35 @@
 </template>
 
 <script>
-import axios from 'axios'
+import moment from 'moment'
 export default {
     name:"TabsTime",
     data() {
       return {
-        value: '',
-        context: null,
-        value1: '',
-        context1: null,
-
+        start: '',
+        end: '',
+        workingtimes: [],
+        fields: ["id", "start", "end"],
       }
     },
     methods: {
-      onContext(ctx) {
-        this.context = ctx
+      onSubmit: function() {
+        fetch(`http://localhost:4000/api/workingtimes/${localStorage.id}?start=${this.start} 00:00:00&end=${this.end} 00:00:00`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => this.workingtimes = data.data)
+      .then(this.convertUtcToLocal)
+      .catch((error) => { console.log('Error', error.message)});
       },
-      onContext1(ctx) {
-        this.context1 = ctx
-      },
-      setValue: function() {
-        axios
-        .get(`http://localhost:4000/api/workingtimes/:7`, {
-          start: this.value,
-          end: this.valu1,
-        })
+      convertUtcToLocal: function() {
+        this.workingtimes.forEach(element => {
+          element.start = moment.utc(element.start).local().format('YYYY-MM-DD HH:mm:ss');
+          element.end = moment.utc(element.end).local().format('YYYY-MM-DD HH:mm:ss')
+        });
       }
     }
 };
