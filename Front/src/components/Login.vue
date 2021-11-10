@@ -25,10 +25,10 @@ import axios from 'axios'
                 password: this.password,
             }).then(Response => (this.info = Response.data,
                 localStorage.token = this.info.data.token,
-                localStorage.role = this.info.data.role)) 
+                localStorage.role = this.info.data.role,
+                localStorage.id = this.info.data.id)) 
             .catch((error) => { console.log('Error', error.message);
             });
-            console.log(this.info)
         },
     },
 }
