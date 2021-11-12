@@ -2,7 +2,7 @@
   <div class="Palette">
     <p>
       <label><b>Select Week</b> </label> &nbsp;
-      <b-form-datepicker id="start-datepicker" size="sm" v-model="start" class="mb-2" @input="updateWeek()"></b-form-datepicker>
+      <b-form-datepicker size="sm" v-model="start" class="mb-2" @input="updateWeek()"></b-form-datepicker>
     </p>
     <apexcharts
       width="100%"
@@ -52,11 +52,6 @@ export default {
           categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
         }
       },
-      series: [
-        {
-          data: [30, 40, 45, 30, 49]
-        }
-      ]
     };
   },
   mounted: function() {
