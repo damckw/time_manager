@@ -1,19 +1,8 @@
 <template>
   <div class="Palette">
     <p>
-      <label><b>Select Theme Palette</b> </label> &nbsp;
-      <select @change="updateTheme">
-        <option value="palette1">palette1</option>
-        <option value="palette2">palette2</option>
-        <option value="palette3">palette3</option>
-        <option value="palette4">palette4</option>
-        <option value="palette5">palette5</option>
-        <option value="palette6">palette6</option>
-        <option value="palette7">palette7</option>
-        <option value="palette8">palette8</option>
-        <option value="palette9">palette9</option>
-        <option value="palette10">palette10</option>
-      </select>
+      <label><b>Select Week</b> </label> &nbsp;
+      <b-form-datepicker id="start-datepicker" size="sm" v-model="start" class="mb-2" @input="updateWeek()"></b-form-datepicker>
     </p>
     <apexcharts
       width="100%"
@@ -23,7 +12,6 @@
       :series="this.workinghours"
     >
     </apexcharts>
-    {{this.workingtimes}}
     </div>
 </template>
 
@@ -38,8 +26,13 @@ export default {
   },
   data: function() {
     return {
+      start: moment().isoWeekday(1).format('YYYY-MM-DD'),
       workingtimes: [],
-      workinghours:[],
+      workinghours: [
+        {
+          data: [0, 0, 0, 0, 0]
+        }
+      ],
       chartOptions: {
         chart: {
           id: "basic-bar",
@@ -70,16 +63,14 @@ export default {
     this.getWorkingTimes();
   },
   methods: {
-    updateTheme: function(e) {
-      this.chartOptions = {
-        theme: {
-          palette: e.target.value
-        }
-      };
+    updateWeek: function() {
+      this.start = moment(this.start).isoWeekday(1).format("YYYY-MM-DD");
+      this.getWorkingTimes();
     },
     getWorkingTimes: function() {
-        var start = moment().isoWeekday(1).format('YYYY-MM-DD');
-        var end = moment().isoWeekday(5).format('YYYY-MM-DD');
+      this.workingtimes = [];
+        var start = this.start;
+        var end = moment(start).add(5, "days").format('YYYY-MM-DD');
         fetch(`http://localhost:4000/api/workingtimes/${localStorage.id}?start=${start} 00:00:00&end=${end} 00:00:00`, {
         method: 'GET',
         headers: {
@@ -88,40 +79,40 @@ export default {
       })
       .then(response => response.json())
       .then(data => this.workingtimes = data.data)
-      // .then(this.computeWorkingHours)
-      .catch((error) => { console.log('Error', error.message)});
+      .then(this.computeWorkingHours)
+      .catch((error) => { 
+        console.log('Error', error.message);
+        });
     },
-    // computeWorkingHours: function() {
-    //   var date = moment().isoWeekday(1);
-    //   var fridayDate = moment().isoWeekday(6);
-    //   var hours = 0;
-    //   var count = 0;
+    computeWorkingHours: function() {
+      var newData = [0,0,0,0,0];
+      this.workingtimes.forEach(e => {
+        var start = moment(e.start);
+        var end = moment(e.end);
+        var duration = moment.duration(end.diff(start));
+        var hours = Math.round(duration.asHours());
+        
+        if (moment(e.start).format("YYYY-MM-DD") == moment(e.start).isoWeekday(1).format("YYYY-MM-DD")) {
+          newData[0] += hours;
+        }
+        if (moment(e.start).format("YYYY-MM-DD") == moment(e.start).isoWeekday(2).format("YYYY-MM-DD")) {
+          newData[1] += hours;
+        }
+        if (moment(e.start).format("YYYY-MM-DD") == moment(e.start).isoWeekday(3).format("YYYY-MM-DD")) {
+          newData[2] += hours;
+        }
+        if (moment(e.start).format("YYYY-MM-DD") == moment(e.start).isoWeekday(4).format("YYYY-MM-DD")) {
+          newData[3] += hours;
+        }
+        if (moment(e.start).format("YYYY-MM-DD") == moment(e.start).isoWeekday(5).format("YYYY-MM-DD")) {
+          newData[4] += hours;
+        }
+      })
+      this.workinghours = [{
+        data: newData
+      }]
+    }
     
-    //   while (!date.isSame(fridayDate, 'day')) {
-    //     if (moment(this.workingtimes[count].start).isSame(date))
-    //     {
-    //       // var now = moment(new Date()); //todays date
-    //       // var end = moment("2015-12-1"); // another date
-    //       // var duration = moment.duration(now.diff(end));
-    //       // var days = duration.asDays();
-    //       console.log(this.workingtimes[count][start]);
-    //       var start = moment(this.workingtimes[count].start, moment.ISO_8601);
-    //       var end = moment(this.workingtimes[count].end, moment.ISO_8601);
-    //       var duration = moment.duration(start.diff(end));
-    //       hours += duration.asHours();
-    //     } else {
-    //       debugger
-    //       this.workinghours.push(hours);
-    //       date = date.add(1, 'days');
-    //       hours = 0;
-    //       if (count <= this.workingtimes.length) {
-    //         count += 1;
-    //       }
-    //     }
-    //     debugger
-    //   }
-      
-    // }
   }
 };
 </script>

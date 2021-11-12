@@ -9,13 +9,13 @@
 				<b-col cols="8">
           <b-card no-body>
             <b-tabs card>
-              <b-tab title="Donut" active>
+              <b-tab title="Daily" active>
                 <Donut></Donut>
               </b-tab>
-              <b-tab title="Palette">
+              <b-tab title="Weekly">
                 <Palette></Palette>
               </b-tab>
-              <b-tab title="Graph">
+              <b-tab title="Monthly">
                 <GraphLine></GraphLine>
               </b-tab>
             </b-tabs>

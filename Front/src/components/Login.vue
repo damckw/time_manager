@@ -26,7 +26,8 @@ import axios from 'axios'
             }).then(Response => (this.info = Response.data,
                 localStorage.token = this.info.data.token,
                 localStorage.role = this.info.data.role,
-                localStorage.id = this.info.data.id)) 
+                localStorage.id = this.info.data.id))
+            .then(this.$router.push('/'))
             .catch((error) => { console.log('Error', error.message);
             });
         },
