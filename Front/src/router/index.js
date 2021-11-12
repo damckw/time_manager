@@ -19,73 +19,32 @@ const routes = [
   {
     path: '/Profile',
     name: 'Profile',
-    component: Profile
+    component: Profile,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.token) {
+        next();
+      } else {
+        next({ path: '/Login' });
+      }
+    }
   },
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.token) {
+        next();
+      } else {
+        next({ path: '/Login' });
+      }
+    }
   },
   {
     path: '/Login',
     name: 'Login',
     component: Login
-  },
-  
-  
-  // {
-  //   path: '/user',
-  //   name: 'User',
-  //   component: User
-  // },
-  // {
-  //   path: '/DeleteUser',
-  //   name: 'DeleteUser',
-  //   component: DeleteUser
-  // },
-  // {
-  //   path: '/GetUser',
-  //   name: 'GetUser',
-  //   component: GetUser
-  // },
-  // {
-  //   path: '/UpdateUser',
-  //   name: 'UpdateUser',
-  //   component: UpdateUser
-  // },
-  // {
-  //   path: '/WorkingTimes',
-  //   name: 'WorkingTimes',
-  //   component: WorkingTimes
-
-  // },
-  // {
-  //   path: '/WorkingTime',
-  //   name: 'WorkingTime',
-  //   component: WorkingTime
-
-  // },
-  // {
-  //   path: '/ClockManager',
-  //   name: 'ClockManager',
-  //   component: ClockManager
-
-  // },
-  // {
-  //   path: '/ChartManager',
-  //   name: 'ChartManager',
-  //   component: ChartManager
-
-  // },
-
-  /*{
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about"  '../views/About.vue')
-  }*/
+  }
 ]
 
 const router = new VueRouter({
