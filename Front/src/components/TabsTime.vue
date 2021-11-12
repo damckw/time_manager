@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-card title="Working Times" style="max-width: 50rem;" class="mb-2" >
+    <b-card title="Working Times" style="max-width: 50rem;" class="mb-2 cardstyle" >
     <b-row>
       <b-col cols="5">
         <label for="start-datepicker">Start</label>
@@ -59,5 +59,11 @@ export default {
 </script>
 
 <style>
-
+.cardstyle {
+  background-color: #EFEBE9 !important;
+  margin-top: 30px;
+  border: rgb(3, 3, 3) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+}
 </style>

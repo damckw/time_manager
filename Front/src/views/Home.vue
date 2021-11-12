@@ -7,7 +7,7 @@
           <WorkingTime></WorkingTime>
         </b-col>
 				<b-col cols="8">
-          <b-card no-body>
+          <b-card no-body class="cardstyle">
             <b-tabs card>
               <b-tab title="Daily" active>
                 <Donut></Donut>
@@ -48,6 +48,12 @@ export default {
 
 
 <style>
-
+.cardstyle {
+  background-color: #EFEBE9 !important;
+  margin-top: 30px;
+  border: rgb(3, 3, 3) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+}
 </style>
 

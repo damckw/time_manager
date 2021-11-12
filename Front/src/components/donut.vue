@@ -1,6 +1,6 @@
 <template>
 	<div class="chart-wrap">
-  <b-card title="Card Title" style="max-width: 40rem;" class="mb-2" >
+  <b-card title="Daily Objective" style="max-width: 40rem;" class="mb-2" >
     <div id="chart">
 			<apexchart type="donut" width="380" :options="chartOptions" :series="series"></apexchart>
 		</div>
@@ -19,15 +19,16 @@ export default {
   },
   data: function() {
     return {
-          series: [440, 55, 13, 33],
+          series: [70,30],
           chartOptions: {
             chart: {
               width: 380,
               type: 'donut',
             },
-            dataLabels: {
-              enabled: false
-            },
+            labels: ["Done", "To-do"],
+            // dataLabels: {
+            //   enabled: false
+            // },
             responsive: [{
               breakpoint: 480,
               options: {
