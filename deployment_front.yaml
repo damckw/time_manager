@@ -30,6 +30,6 @@ spec:
       containers:
       - name: timemanager-front-app
         image: gcr.io/timemanager-330915/timemanager_front:1.0.0
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
