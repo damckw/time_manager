@@ -41,7 +41,8 @@ export default {
           }
         },
         dataLabels: {
-          enabled: false
+          enabled: false,
+          color: []
         },
         plotOptions: {
           bar: {

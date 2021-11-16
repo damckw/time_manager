@@ -35,7 +35,7 @@ export default {
 				curve: 'straight'
 			},
 			title: {
-				text: 'Product Trends by Month',
+				text: 'Working Times by Month',
 				align: 'left'
 			},
 			grid: {

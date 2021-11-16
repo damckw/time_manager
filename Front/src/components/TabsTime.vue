@@ -25,8 +25,12 @@
 
 <script>
 import moment from 'moment'
+
 export default {
     name:"TabsTime",
+    props: {
+      userID: String,
+    },
     data() {
       return {
         start: '',
@@ -37,7 +41,7 @@ export default {
     },
     methods: {
       onSubmit: function() {
-        fetch(`http://localhost:4000/api/workingtimes/${localStorage.id}?start=${this.start} 00:00:00&end=${this.end} 00:00:00`, {
+        fetch(`http://localhost:4000/api/workingtimes/${this.userID}?start=${this.start} 00:00:00&end=${this.end} 00:00:00`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${localStorage.token}`

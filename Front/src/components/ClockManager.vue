@@ -19,7 +19,7 @@
 <script>
 
 import axios from 'axios'
-import moment from 'moment'
+
 export default {
   props: ['userid'],
   name: "ClockManager",

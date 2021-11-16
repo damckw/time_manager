@@ -20,7 +20,7 @@
               </b-tab>
             </b-tabs>
           </b-card>
-          <TabsTime></TabsTime>
+          <TabsTime v-bind:userID="this.userID"></TabsTime>
         </b-col>
 			</b-row>
 		</b-container>
@@ -29,9 +29,9 @@
 
 <script>
 import WorkingTime from '../components/WorkingTime.vue'
-import Donut from '../components/donut.vue'
-import Palette from '../components/palette.vue'
-import GraphLine from '../components/GraphLine.vue'
+import Donut from '../components/charts/donut.vue'
+import Palette from '../components/charts/palette.vue'
+import GraphLine from '../components/charts/GraphLine.vue'
 import TabsTime from '../components/TabsTime.vue'
 
 export default {
@@ -43,6 +43,11 @@ export default {
     Palette,
     TabsTime,
   },
+  data() {
+    return ({
+      userID: localStorage.id,
+    })
+  }
 }
 </script>
 
