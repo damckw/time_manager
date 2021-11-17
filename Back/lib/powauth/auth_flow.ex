@@ -29,6 +29,8 @@ defmodule Theme01.Auth.AuthFlow do
       |> Conn.put_private(:api_access_token, generated_token)
       |> Conn.put_private(:role, user.role)
       |> Conn.put_private(:id, user.id)
+      |> Conn.put_private(:username, user.username)
+      |> Conn.put_private(:email, user.email)
     {conn, user}
   end
 

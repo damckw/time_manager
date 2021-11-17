@@ -1,9 +1,26 @@
 <template>
   <div class="headerstyle">
-    <b-row>
-      <b-col><b-link class='linkstyle' href="/">TimeManager</b-link></b-col>
-      <b-col><Timer></Timer></b-col>
-      <b-col><b-button pill class="buttonstyle" v-on:click='ChangeRoute'>{{ str }}</b-button></b-col>
+    <b-row align-v="stretch">
+      <b-col cols="4">
+        <a href="/">
+          <img src='../assets/logo.png' class="img-fluid"/>
+        </a>
+      </b-col>
+      <b-col>
+        <Timer></Timer>
+      </b-col>
+      <b-col cols="auto">
+        <b-button-group>
+          <b-button variant="outline-primary" class="buttonstyle" href="/profile">
+            <b-icon icon="person-fill"></b-icon>
+          </b-button>
+          <b-button variant="outline-primary" class="buttonstyle" v-on:click="signOut">
+            <b-icon icon="box-arrow-right"></b-icon>
+          </b-button>
+        </b-button-group>
+        
+        <!-- <b-button pill class="buttonstyle" v-on:click="this.$router.push({ path: '/Profile' })"><b-icon icon="person-circle"></b-icon></b-button> -->
+      </b-col>
     </b-row>
   </div>
 </template>
@@ -37,6 +54,12 @@ export default {
     },
     HomeRoute: function() {
       this.$router.push({ path: '/' })
+    },
+    signOut: function() {
+      if (localStorage.id && localStorage.token && localStorage.role) {
+        localStorage.clear();
+        this.$router.push({path: '/login'})
+      }
     }
   }
 };
@@ -45,8 +68,8 @@ export default {
 <style scoped>
 
 .headerstyle {
-  height: 100px;
-  width: 100%;
+  height: 100% !important;
+  width: 100% !important;
   background-color: #EFEBE9 !important;
   border: rgb(3, 3, 3) !important;
   border-style: solid !important;
@@ -56,14 +79,18 @@ export default {
 }
 
 .buttonstyle {
-  margin-top: 25px;
+  /* margin-top: 25px; */
+  /* text-align: center; */
   width: 30%;
-  background-color: #795548 !important;
+  color: #795548 !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
   font-family: Florance;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .linkstyle {
+  text-align: center !important;
   font-family: Florance;
   font-size: 25px;
 }

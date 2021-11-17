@@ -4,7 +4,7 @@
       <b-card-text class="titlestyle">
         Clock
       </b-card-text>
-      <p>{{formattedElapsedTime}}</p>
+      <p class="clock">{{formattedElapsedTime}}</p>
       <b-button v-on:click='onSubmit' class="buttonstyle">{{ this.info.status ? 'Leave' : 'Arrive'}}</b-button>
       <b-button v-if="this.role === 'general_manager'" v-b-modal.modal-employees v-on:click="getUsers" class="buttonstyle">Employees</b-button>
 
@@ -168,5 +168,10 @@ export default {
   width: 100%;
   background-color: #795548 !important;
   font-family: Florance;
+}
+
+.clock {
+  color: #795548;
+  font-size: 40px;
 }
 </style>
