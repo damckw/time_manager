@@ -10,26 +10,29 @@
 
       <b-modal id="modal-employees" title="Employees" size="xl">
         <b-card>
-          <b-button class="buttonstyle">Add employee</b-button>
+          <b-button v-b-modal.modal-create class="buttonstyle">Create User</b-button>
           <b-table id="workingtimes-table" scrollable striped hover :items="this.users" :fields="fields">
             <template #cell(options)="row">
-              <b-button size="sm" variant="danger" @click="showWorkingTimes(row.item, row.index, $event.target)" class="mr-1">
+              <b-button size="sm" variant="danger" @click="deleteUser(row.item.id, row.item.index)" class="mr-1">
                 Delete
               </b-button>
-              <b-button size="sm" variant="outline-primary" @click="showWorkingTimes(row.item, row.index, $event.target)" class="mr-1">
-                Edit
+              <b-button size="sm" v-b-modal.modal-update @click="updateModal(row.item, $event.target)">
+                Update User
               </b-button>
               <b-button size="sm" @click="row.toggleDetails">
                  {{ row.detailsShowing ? 'Hide' : 'Show' }} Working Times
               </b-button>
             </template>
             <template #row-details="row">
-              <b-card>
                 <TabsTime v-bind:userID=row.item.id></TabsTime>
-              </b-card>
             </template>
-
           </b-table>
+          <b-modal id="modal-create" title="Create User" @hidden="getUsers">
+            <CreateUser/>
+          </b-modal>
+          <b-modal id="modal-update" title="Update User">
+              <UpdateUser v-bind:user="this.selectedUser" :key="this.selectedUser"/>
+          </b-modal>
         </b-card>
   </b-modal>
   </b-card>
@@ -39,14 +42,19 @@
 <script>
 import moment from 'moment'
 import TabsTime from './TabsTime'
+import UpdateUser from './UpdateUser'
+import CreateUser from './CreateUser'
 
 export default {
     name: 'WorkingTime',
     components: {
-      TabsTime: TabsTime
+      TabsTime: TabsTime,
+      UpdateUser: UpdateUser,
+      CreateUser: CreateUser
     },
     data () {
         return {
+          selectedUser: null,
           elapsedTime: 0,
           timer: undefined,
           info: '',
@@ -142,6 +150,25 @@ export default {
       },
       checkRole: function() {
         return localStorage.role == "manager"
+      },
+      updateModal(user, button) {
+        console.log(user);
+        this.selectedUser = user;
+        setTimeout(() => {}, 3000);
+        this.$root.$emit('bv::show::modal', "modal-update", button)
+      },
+      deleteUser: function(userId, index) {
+        fetch(`http://localhost:4000/api/users/${userId}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${localStorage.token}`
+          }
+        }).then(response => {
+          this.users.splice(index, 1);
+        })
+        .catch((error) => {
+          alert(error);
+        })
       }
     },
 }

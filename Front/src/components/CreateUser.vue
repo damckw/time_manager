@@ -7,46 +7,43 @@
             <b-form-group label-cols="6" label-cols-lg="4" label="Email" label-for="input-default">
                 <b-form-input v-model="email" type="text"/>
             </b-form-group>
-            <b-form-group label-cols="6" label-cols-lg="4" label="Current Password" label-for="input-default">
-                <b-form-input v-model="current_password" type="password"/>
+            <b-form-group label-cols="6" label-cols-lg="4" label="Password" label-for="input-default">
+                <b-form-input v-model="password" type="password"/>
             </b-form-group>
-            <b-form-group label-cols="6" label-cols-lg="4" label="New Password" label-for="input-default">
-                <b-form-input v-model="new_password" type="password"/>
+            <b-form-group label-cols="6" label-cols-lg="4" label="Confirm Password" label-for="input-default">
+                <b-form-input v-model="password_confirmation" type="password"/>
             </b-form-group>
             <b-form-group label-cols="6" label-cols-lg="4" label="Role" label-for="input-default">
                 <b-form-input v-model="role" type="text"/>
             </b-form-group>
-            <b-button class="buttonstyle" v-on:click="update">Update</b-button>
+            <b-button class="buttonstyle" v-on:click="onSubmit">Create</b-button>
         </b-container>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'UpdateUser',
-    props: {
-        user: Object
-    },
+    name: 'CreateUser',
     data () {
         return {
-            email: this.user.email,
-            username: this.user.username,
-            role: this.user.role,
-            current_password: "",
-            new_password: ""
+            email: "",
+            username: "",
+            role: "",
+            password: "",
+            password_confirmation: ""
         }
     },
     methods: {
-        update() {
+        onSubmit() {
             var data = {
                     email: this.email,
                     username: this.username,
-                    current_password: this.current_password,
-                    new_pasword: this.new_password,
+                    password: this.password,
+                    password_confirmation: this.password_confirmation,
                     role: this.role
                 }
-            fetch(`http://localhost:4000/api/users/${this.userId}`, {
-                method: 'PUT',
+            fetch(`http://localhost:4000/api/users/`, {
+                method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Authorization': `Bearer ${localStorage.token}`,
@@ -58,24 +55,12 @@ export default {
             .then(response => response.json())
             .then((data) => {
                 console.log(data);
-                if (data.data) {
-                    localStorage.role = data.data.role;
-                    localStorage.id = data.data.id;
-                    localStorage.username = data.data.username;
-                    localStorage.email = data.data.email;
-                    alert("Update Successful");
-                } else if (data.errors) {
+                if (data.error) {
                     alert(JSON.stringify(data.errors));
+                } else {
+                    alert("User Succesfully Created!");
                 }
             });
-            // axios
-            // .patch(`http://localhost:4000/api/users/${this.userId}`,{
-            //     username: this.username,
-            //     email: this.email,
-            // })
-            // .then(Response => (this.info = Response.data)) 
-            // .catch((error) => { console.log('Error', error.message); this.info = null;
-            // });
         }
     }
 }

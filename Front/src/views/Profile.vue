@@ -2,7 +2,7 @@
   <div class="about">
 	  <b-container class="align-center">
 		  <b-card title="User Profile" style="max-width: 40rem;" class="cardstyle" >
-			<UpdateUser></UpdateUser>
+			<UpdateUser v-bind:user="this.user"></UpdateUser>
 			</b-card>
 	  </b-container>
     
@@ -19,8 +19,12 @@ export default defineComponent({
   },
   data() {
 	  return ({
-		  username: localStorage.username,
-		  email: localStorage.email,
+		  user: {
+			username: localStorage.username,
+		  	email: localStorage.email,
+		  	id: localStorage.id,
+			role: localStorage.role
+		  }
 	  })
   }
 })
